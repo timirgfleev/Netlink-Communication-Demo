@@ -5,26 +5,20 @@
 
 #define NLINK_MSG_LEN 1024
 
+
+#include <Connection.h>
+
 int main()
 {
     // Create a new socket
-    nl_sock *sk = nl_socket_alloc();
-    if (!sk)
-    {
-        std::cerr << "Failed to allocate netlink socket.\n";
-        return -1;
-    }
-    //std::cin.get();
-    // Connect the socket
-    if (nl_connect(sk, NETLINK_GENERIC) < 0)
-    {
-        std::cerr << "Failed to connect the netlink socket.\n";
-        nl_socket_free(sk);
-        return -1;
-    }
+    auto c = UnicastConnection::Create(1);
 
-    // Set the local (source) address of the socket
-    nl_socket_set_local_port(sk, 1);
+    if(!c)
+    {
+        std::cout << "Failed to create socket\n";
+        return -1;
+    }
+    nl_sock *sk = c->getSocket();
 
     // Create a new netlink message
     nl_msg *msg = nlmsg_alloc();
@@ -54,7 +48,6 @@ int main()
     {
         std::cerr << "Failed to append payload to netlink message.\n";
         nlmsg_free(msg);
-        nl_socket_free(sk);
         return -1;
     }
 
@@ -74,7 +67,6 @@ int main()
     {
         std::cerr << "code: " << msgcode << " Failed to send netlink message.\n";
         nlmsg_free(msg);
-        nl_socket_free(sk);
         return -1;
     }
 
@@ -82,7 +74,6 @@ int main()
 
     // Free the message and the socket
     nlmsg_free(msg);
-    nl_socket_free(sk);
 
     return 0;
 }

@@ -10,6 +10,8 @@ find_path(LibNL_INCLUDE_DIR netlink/netlink.h
     /usr/local/include/libnl3
 )
 
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
 find_library(LibNL_LIBRARY NAMES nl nl-3)
 find_library(LibNL_GENL_LIBRARY NAMES nl-genl nl-genl-3)
 
