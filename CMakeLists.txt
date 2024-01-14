@@ -14,7 +14,7 @@ find_library(LibNL_LIBRARY NAMES nl nl-3)
 find_library(LibNL_GENL_LIBRARY NAMES nl-genl nl-genl-3)
 
 add_executable(nl_client send/send.cpp)
-add_executable(nl_server recv.cpp)
+add_executable(nl_server recv/recv.cpp)
 
 target_include_directories(nl_client PRIVATE ${LibNL_INCLUDE_DIR})
 target_include_directories(nl_server PRIVATE ${LibNL_INCLUDE_DIR})
