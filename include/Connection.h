@@ -4,6 +4,10 @@
 #include <memory>
 #include <iostream>
 
+/*
+* @brief A class that represents a unicast connection
+* @details This class is used to send and receive messages
+*/
 class UnicastConnection
 {
     friend std::unique_ptr<UnicastConnection> std::make_unique<UnicastConnection>();

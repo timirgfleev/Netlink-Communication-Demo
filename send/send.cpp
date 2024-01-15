@@ -1,5 +1,3 @@
-
-
 #include <Connection.h>
 #include <StringMessage.h>
 #include <ConfigConsts.h>
