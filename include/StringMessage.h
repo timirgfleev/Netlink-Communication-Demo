@@ -65,6 +65,11 @@ public:
         return true;
     }
 
+    bool is_ok()
+    {
+        return msg != nullptr;
+    }
+
 private:
     nl_msg *msg;
 };

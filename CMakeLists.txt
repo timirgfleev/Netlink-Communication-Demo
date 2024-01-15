@@ -25,3 +25,17 @@ message(STATUS "LibNL_INCLUDE_DIR: ${LibNL_INCLUDE_DIR}")
 
 target_link_libraries(nl_client PRIVATE ${LibNL_LIBRARY} ${LibNL_GENL_LIBRARY})
 target_link_libraries(nl_server PRIVATE ${LibNL_LIBRARY} ${LibNL_GENL_LIBRARY})
+
+
+# Tests
+enable_testing()
+
+add_executable(ConnectionTest tests/ConnectionTest.cpp)
+target_include_directories(ConnectionTest PRIVATE ${LibNL_INCLUDE_DIR})
+target_link_libraries(ConnectionTest PRIVATE ${LibNL_LIBRARY} ${LibNL_GENL_LIBRARY})
+add_test(NAME ConnectionTest COMMAND ConnectionTest)
+
+add_executable(MessageTest tests/MessageTest.cpp)
+target_include_directories(MessageTest PRIVATE ${LibNL_INCLUDE_DIR})
+target_link_libraries(MessageTest PRIVATE ${LibNL_LIBRARY} ${LibNL_GENL_LIBRARY})
+add_test(NAME MessageTest COMMAND MessageTest)
