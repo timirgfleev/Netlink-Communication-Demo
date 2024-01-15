@@ -32,7 +32,6 @@ int main()
     if(skb < 0)
     {
         std::cout << "Failed to set callback: " << nl_geterror(skb) << "\n";
-        nl_socket_free(sk);
         return -1;
     }
     std::cout << "work on port: " << nl_socket_get_local_port(sk) << "\n";
