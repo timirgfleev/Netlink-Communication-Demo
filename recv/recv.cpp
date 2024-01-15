@@ -1,11 +1,11 @@
-#include <netlink/socket.h>
 #include <netlink/msg.h>
 #include <iostream>
 #include <cstring>
 
 #include <Connection.h>
+#include <ConfigConsts.h>
 
-#define NLINK_MSG_LEN 1024
+
 
 // Define the callback function
 int my_recv_msg(nl_msg *msg, void *arg)
@@ -17,9 +17,8 @@ int my_recv_msg(nl_msg *msg, void *arg)
 
 int main()
 {
-    //std::cin.get();
     // Create a new socket
-    auto c = UnicastConnection::Create(2);
+    auto c = UnicastConnection::Create(SERVER_PORT);
 
     if(!c)
     {
@@ -44,6 +43,13 @@ int main()
         if (ret < 0)
         {
             std::cout << "Failed to receive netlink message: " << nl_geterror(ret) << "\n";
+            break;
+        }
+
+        // If the return value is 0, it means that message has been received
+        if (ret == 0)
+        {
+            std::cout << "Message received, exiting...\n";
             break;
         }
     }
